@@ -10,7 +10,7 @@ client_socket.connect((host, port)) #создаём подключение по 
 
 table = pd.DataFrame(columns = ['EAN 128', 'GS1', 'UPC']) #создаём таблицу со столбцами по названиям ШК
 while True: #создаём бесконечный цикл считывания
-    data = client_socket.recv(1024).decode() #получаем пакеты данных по 1024 байта
+    data = client_socket.recv(1024).decode() #получаем пакеты данных по 1024 байта, пока не вернёт пустую строку
     print(data) #выводим в строку считанные данные
     table.loc[len(table)] = [re.findall(r'\b\d{29}\b', data), re.findall(r'\b\d{58}\b', data), re.findall(r'\b\d{13}\b', data)]
             #записываем каждый раз в новую строчку снизу отфильтрованные ШК (так как они считываются в случайном порядке)
